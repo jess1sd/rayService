@@ -27,7 +27,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add archive/*.zip
-          git commit -m "Archive project at ${{ github.sha }} [skip ci]"
+          git commit -m "Archive project at ${{ github.sha }}"
           # Set the remote to use the PAT for authentication
           git remote set-url origin https://x-access-token:${ACCESS_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
           git push
