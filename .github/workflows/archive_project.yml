@@ -15,11 +15,11 @@ jobs:
       - name: Install ZIP
         run: sudo apt-get install zip
 
-      - name: Zip project
-        run: zip -r archive/${{ github.sha }}.zip . -x "*.git*" ".github/*" "archive/*"
-
       - name: Create Archive Directory
         run: mkdir -p archive
+
+      - name: Zip project
+        run: zip -r archive/${{ github.sha }}.zip . -x "*.git*" ".github/*" "archive/*"
 
       - name: Commit and Push Archive
         run: |
