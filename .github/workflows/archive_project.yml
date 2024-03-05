@@ -34,5 +34,5 @@ jobs:
           git add archive/*.zip
           git commit -m "Archive project at ${{ github.sha }} [skip ci]"
           # Set the remote to use the PAT for authentication
-          git remote set-url origin https://x-access-token:${ACCESS_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          git remote set-url origin https://x-access-token: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@github.com/${GITHUB_REPOSITORY}.git
           git push
