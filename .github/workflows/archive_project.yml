@@ -1,0 +1,30 @@
+name: Archive Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  zip-and-archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install ZIP
+        run: sudo apt-get install zip
+
+      - name: Zip project
+        run: zip -r archive/${{ github.sha }}.zip . -x "*.git*" ".github/*" "archive/*"
+
+      - name: Create Archive Directory
+        run: mkdir -p archive
+
+      - name: Commit and Push Archive
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add archive/*.zip
+          git commit -m "Archive project at ${{ github.sha }}"
+          git push
