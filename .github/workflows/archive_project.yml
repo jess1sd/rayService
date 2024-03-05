@@ -20,7 +20,11 @@ jobs:
 
       - name: Zip project
         run: zip -r archive/${{ github.sha }}.zip . -x "*.git*" ".github/*" "archive/*"
-
+      - name: Print secret value
+        env:
+          MY_SECRET: ${{ secrets.PAT }}
+        run: | 
+          echo "Secret value: $MY_SECRET"
       - name: Commit and Push Archive
         env:
           ACCESS_TOKEN: ${{ secrets.PAT }}
@@ -30,6 +34,5 @@ jobs:
           git add archive/*.zip
           git commit -m "Archive project at ${{ github.sha }} [skip ci]"
           # Set the remote to use the PAT for authentication
-          echo ${ACCESS_TOKEN}
           git remote set-url origin https://x-access-token:${ACCESS_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
           git push
