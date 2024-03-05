@@ -23,7 +23,7 @@ jobs:
 
       - name: Commit and Push Archive
         env:
-          ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.PAT }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
