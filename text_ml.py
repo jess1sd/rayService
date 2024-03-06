@@ -15,6 +15,7 @@ class Translator:
         self.model = pipeline("translation_en_to_fr", model="t5-small")
 
     def translate(self, text: str) -> str:
+        print(f"to_translate={text}")
         model_output = self.model(text)
 
         translation = model_output[0]["translation_text"]
@@ -44,18 +45,20 @@ class Summarizer:
         self.max_length = 15
 
     def summarize(self, text: str) -> str:
+        print(f"summarize={text}")
         # Run inference
         model_output = self.model(
             text, min_length=self.min_length, max_length=self.max_length
         )
-
+        print(f"output={model_output}")
         # Post-process output to return only the summary text
         summary = model_output[0]["summary_text"]
-
+        print(f"summary={summary}")
         return summary
 
     async def __call__(self, http_request: Request) -> str:
         english_text: str = await http_request.json()
+        print(f"english_text={english_text}")
         summary = self.summarize(english_text)
 
         return await self.translator.translate.remote(summary)
